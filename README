@@ -1,0 +1,12 @@
+A little project inspired by Gecode to implement constraint programming in Erlang.
+
+Note, this is purely for fun and the only goals are:
+  * Fun
+  * Correctness (in that all implemented propagators, branchers, search methods, etc work correctly)
+
+It is not intented to be:
+  * Usable for any serious problem solving
+  * Efficient
+  * Complete
+
+If you are looking for solving real constrain programming problems, use real tools like Gecode.
