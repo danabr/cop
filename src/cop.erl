@@ -1,5 +1,5 @@
-%% encoding: utf-8
-%% @doc Cop - a constraint programming engine implemented in Erlang.
+% encoding: utf-8
+% @doc Cop - a constraint programming engine implemented in Erlang.
 -module(cop).
 -include("include/cop.hrl").
 

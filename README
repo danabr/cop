@@ -1,12 +1,28 @@
-A little project inspired by Gecode to implement constraint programming in Erlang.
+cop - a constraint programming engine implemented in Erlang.
+===================================================================
 
-Note, this is purely for fun and the only goals are:
-  * Fun
-  * Correctness (in that all implemented propagators, branchers, search methods, etc work correctly)
+cop is a constraint programming engine implemented in Erlang. Its aim is to be
+a sandbox for exploring and learning constraint programming concepts. It is not
+aimed to solve real constraint programming problems.
 
-It is not intented to be:
-  * Usable for any serious problem solving
-  * Efficient
-  * Complete
+cop provides tools for modeling constraint based problems, as well as an engine
+for finding solutions to such models. It also contains tools for graphing the
+search tree.
 
-If you are looking for solving real constrain programming problems, use real tools like Gecode.
+In addition to the builtin propagators, search engines and branchers, cop provides
+means for specifying your own.
+
+Please note cop prefers simplicity and extendability over completeness and efficiency.
+cop should be correct, though, so please report any issue you find using the Github issue tracker.
+
+cop was inspired by Gecode and Christian Schulte's course on the subject at KTH.
+If you want a vastly more powerful and efficeint constrain programming engine,
+Gecode is a good choice.
+
+TODO
+----
+* Implement the linear propagator
+* Add tools for visualizing the search tree.
+* Provide documentation for implementing your own propagators, branchers, and search engines
+* More propagators
+* Add a branch-and-bound search engine
