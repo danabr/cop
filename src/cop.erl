@@ -5,8 +5,6 @@
 
 -export([model/4, search_all/1, search_all/2, search_next/1, search_next/2, branch/3]).
 
--export([int_var/3]).
-
 % Returns a new space describing the given model.
 % Vars should be a list of variables in the model.
 % Propagators should be a list of propagators defining the constraints of the model.
@@ -73,7 +71,3 @@ search_data_for({Fun, _StartParams}=ToUse) when is_function(Fun) ->
 branch(Vars=[_|_], VarStrategy, ValStrategy) ->
   VarIds = [Id || #var{id=Id} <- Vars],
   #brancher{vars=VarIds, var_strategy=VarStrategy, val_strategy=ValStrategy}.
-
-% Registers a new integer variable with the given min and max values.
-int_var(Id, Min, Max) when is_atom(Id), is_integer(Min), is_integer(Max), Max >= Min ->
-  {var, integer, Id, lists:seq(Min, Max)}.

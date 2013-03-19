@@ -29,15 +29,15 @@ propagate1(_LastVars, Vars, Propagators) ->
   propagate1(Vars, NewVars, PropsLeft).
 
 prop_single(AllVars, #propagator{implementation=PropImpl, vars=PropVars}) ->
-  Vars = lists:filter(fun({_, _, Id, _}) -> lists:member(Id, PropVars) end, AllVars),
-  {Status, NewDomains} = PropImpl(Vars),
-  {Status, update_domains(AllVars, NewDomains) }.
+  Vars = lists:filter(fun(#var{id=Id}) -> lists:member(Id, PropVars) end, AllVars),
+  {Status, NewVars} = PropImpl(Vars),
+  {Status, update_vars(AllVars, NewVars) }.
 
-update_domains(Vars, NewDomains) ->
+update_vars(Vars, UpdatedVars) ->
   MapImpl = fun(Var=#var{id=Id}) ->
-    case proplists:get_value(Id, NewDomains) of
-      undefined -> Var;
-      NewDomain -> Var#var{domain=NewDomain}
+    case lists:keyfind(Id, #var.id, UpdatedVars) of
+      false -> Var;
+      NewVar -> NewVar
     end
   end,
   lists:map(MapImpl, Vars).
@@ -48,10 +48,10 @@ evaluate(#space{vars=Vars}) ->
   evaluate(Vars, solved).
 
 evaluate([], Status) -> Status;
-evaluate([#var{domain=D}|Vs], Status) ->
-  case length(D) of
-    0 -> failed;
-    1 -> evaluate(Vs, Status);
-    _N -> evaluate(Vs, unsolved)
+evaluate([V|Vs], Status) ->
+  case cop_var:status(V) of
+    failed -> failed;
+    assigned -> evaluate(Vs, Status);
+    open -> evaluate(Vs, unsolved)
   end.
 

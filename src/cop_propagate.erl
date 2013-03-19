@@ -7,9 +7,8 @@
 -include("include/cop.hrl").
 
 % Implementation of not equal propagator.
-propagate_ne([#var{type=integer, id=Id, domain=Domain}], Constant) ->
-  Domain1 = lists:delete(Constant, Domain),
-  {subsumed, [{Id, Domain1}]}.
+propagate_ne([Var], Constant) ->
+  {subsumed, cop_var:nq(Var, Constant)}.
 
 % @spec custom([var()], PropagatorFun) -> propagator()
 %  PropagatorFun = fun([var()]) -> {Status, [domain()]}
